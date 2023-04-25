@@ -37,6 +37,9 @@ body {
 .themed-background {
   @apply transition-all ease-in-out duration-700;
 }
+.themed-text {
+  @apply transition-all ease-in-out duration-300;
+}
 .themed-background.delayed {
   @apply delay-100;
 }

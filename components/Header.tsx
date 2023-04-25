@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
-import { useTheme, borderStyles, TextStyles } from "../contexts/ThemeContext";
+import { useTheme } from "../contexts/ThemeContext";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const categories = [
   { name: "React", slug: "react" },
@@ -9,6 +10,7 @@ const categories = [
 const Header = () => {
   const { theme, themeColors } = useTheme();
   const { text, hoverBorder } = themeColors[theme];
+
   const textStyle = {
     color: text,
   };
@@ -17,7 +19,7 @@ const Header = () => {
     borderColor: hoverBorder,
   };
   return (
-    <div className="container mx-auto px-10 mb-8">
+    <div className="container mx-auto px-10 mb-8 themed-background">
       <div
         style={borderStyle}
         className={` border-b w-full inline-block  py-8`}
@@ -33,16 +35,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="hidden md:float-left md:contents">
-          {categories.map((category) => (
-            <Link key={category.slug} href={`/category/${category.slug}`}>
-              <span
-                style={textStyle}
-                className={`md:float-right mt-2 align-middle ml-4 font-semibold cursor-pointer`}
-              >
-                {category.name}
-              </span>
-            </Link>
-          ))}
+          <ThemeSwitcher />
         </div>
       </div>
     </div>

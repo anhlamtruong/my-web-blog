@@ -1,17 +1,8 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import Head from "next/head";
-import classNames from "classnames";
-
+import { getPosts } from "@/services";
 import { useTheme } from "../contexts/ThemeContext";
-
-import {
-  PostCard,
-  ThemeSwitcher,
-  Categories,
-  PostWidget,
-  BackgroundGradient,
-} from "@/components";
+import { Post } from "@/interface";
+import { PostCard, Categories, PostWidget } from "@/components";
 import { useEffect, useState } from "react";
 
 const posts = [
@@ -23,15 +14,22 @@ const posts = [
   },
 ];
 
-export default function Home() {
+interface HomeProps {
+  posts: Post[];
+}
+
+export default function Home({ posts }: HomeProps) {
   const { theme, themeColors } = useTheme();
-  const { background, text, hoverBorder, hoverBackground } = themeColors[theme];
+  // console.log(posts);
+  const { background, text } = themeColors[theme];
   const containerStyle = {
-    backgroundColor: background,
     color: text,
   };
   return (
-    <div style={containerStyle} className={`container mx-auto px-10 mb-8`}>
+    <div
+      style={containerStyle}
+      className={`container mx-auto px-10 themed-text `}
+    >
       <Head>
         <title>Anh Blog</title>
         <link rel="icon" href="../public/favicon.ico" />
@@ -39,18 +37,24 @@ export default function Home() {
 
       <div className=" grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 col-span-1">
-          {posts.map((post, index) => (
-            <PostCard post={post} key={post.title} />
+          {posts.map((node, index) => (
+            <PostCard node={node} key={node.node.id} />
           ))}
         </div>
         <div className=" lg:col-span-4 col-span-1">
           <div className=" lg:sticky relative top-8">
-            <PostWidget />
+            <PostWidget categories={["test"]} />
             <Categories />
           </div>
         </div>
       </div>
-      <ThemeSwitcher />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const posts = (await getPosts()) || [];
+  return {
+    props: { posts },
+  };
 }

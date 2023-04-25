@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  useTheme,
-  Theme,
-  buttonStyles,
-  buttonHoverStyles,
-  borderStyles,
-} from "../contexts/ThemeContext";
+import { useTheme, Theme } from "../contexts/ThemeContext";
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme, themeColors } = useTheme();
@@ -61,7 +55,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="relative inline-block rounded"
+      className="relative font-medium inline-block rounded md:float-right mt-2 align-middle ml-4"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -92,7 +86,7 @@ const ThemeSwitcher: React.FC = () => {
               className={`px-4 py-2 cursor-pointer  }`}
               onClick={() => handleThemeChange("light")}
             >
-              Light Mode
+              Light
             </li>
             <li
               style={containerStyle}
@@ -101,7 +95,7 @@ const ThemeSwitcher: React.FC = () => {
               className={`px-4 py-2 cursor-pointer `}
               onClick={() => handleThemeChange("dark")}
             >
-              Dark Mode
+              Dark
             </li>
             <li
               style={containerStyle}
@@ -110,7 +104,7 @@ const ThemeSwitcher: React.FC = () => {
               className={`px-4 py-2 cursor-pointer `}
               onClick={() => handleThemeChange("ocean-blue")}
             >
-              Ocean Blue Mode
+              Ocean Blue
             </li>
             <li
               style={containerStyle}
@@ -119,7 +113,7 @@ const ThemeSwitcher: React.FC = () => {
               className={`px-4 py-2 cursor-pointer `}
               onClick={() => handleThemeChange("tokyo-night")}
             >
-              Tokyo Night Mode
+              Tokyo Night
             </li>
           </motion.ul>
         )}

@@ -5,6 +5,7 @@ type ThemeColors = {
   [key in Theme]: {
     background: string;
     text: string;
+    hoverText: string;
     hoverBorder: string;
     hoverBackground: string;
   };
@@ -12,26 +13,30 @@ type ThemeColors = {
 
 const themeColors: ThemeColors = {
   light: {
-    background: "#f9fafb",
+    background: "rgba(249, 250, 251, 0.915)",
     text: "#1f2937",
+    hoverText: "#3b82f6",
     hoverBorder: "#1f2937",
     hoverBackground: "#3b82f6",
   },
   dark: {
-    background: "#1f2937",
+    background: "rgba(31, 41, 55, 0.915)",
     text: "#f9fafb",
+    hoverText: "#ec4899",
     hoverBorder: "#4b5563",
     hoverBackground: "#8b5cf6",
   },
   "ocean-blue": {
-    background: "#0077b6",
+    background: "rgba(0, 118, 182, 0.915)",
     text: "#caf0f8",
+    hoverText: "#f48c06",
     hoverBorder: "#90e0ef",
     hoverBackground: "#00b4d8",
   },
   "tokyo-night": {
-    background: "#1a202c",
+    background: "rgba(26, 32, 44, 0.915)",
     text: "#edf2f7",
+    hoverText: "#f56565",
     hoverBorder: "#2d3748",
     hoverBackground: "#f56565",
   },
@@ -85,39 +90,39 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-export const mainStyles = {
-  light: "bg-light text-light",
-  dark: "bg-dark text-dark",
-  "ocean-blue": "bg-ocean-blue text-ocean-blue",
-  "tokyo-night": "bg-tokyo-night text-tokyo-night",
-};
-export const TextStyles = {
-  light: "text-light",
-  dark: "text-dark",
-  "ocean-blue": "text-ocean-blue",
-  "tokyo-night": "text-tokyo-night",
-};
-export const backgroundStyles = {
-  light: "bg-light",
-  dark: "bg-dark",
-  "ocean-blue": "bg-ocean-blue",
-  "tokyo-night": "bg-tokyo-night",
-};
-export const buttonStyles = {
-  light: "bg-light text-light",
-  dark: "bg-dark text-dark",
-  "ocean-blue": "bg-ocean-blue text-ocean-blue",
-  "tokyo-night": "bg-tokyo-night text-tokyo-night",
-};
-export const buttonHoverStyles = {
-  light: "hover:bg-light-primary",
-  dark: "hover:bg-dark-primary",
-  "ocean-blue": "hover:bg-ocean-blue-primary",
-  "tokyo-night": "hover:bg-tokyo-night-primary",
-};
-export const borderStyles = {
-  light: "border-light",
-  dark: "border-dark",
-  "ocean-blue": "border-ocean-blue",
-  "tokyo-night": "border-tokyo-night",
-};
+// export const mainStyles = {
+//   light: "bg-light text-light",
+//   dark: "bg-dark text-dark",
+//   "ocean-blue": "bg-ocean-blue text-ocean-blue",
+//   "tokyo-night": "bg-tokyo-night text-tokyo-night",
+// };
+// export const TextStyles = {
+//   light: "text-light",
+//   dark: "text-dark",
+//   "ocean-blue": "text-ocean-blue",
+//   "tokyo-night": "text-tokyo-night",
+// };
+// export const backgroundStyles = {
+//   light: "bg-light",
+//   dark: "bg-dark",
+//   "ocean-blue": "bg-ocean-blue",
+//   "tokyo-night": "bg-tokyo-night",
+// };
+// export const buttonStyles = {
+//   light: "bg-light text-light",
+//   dark: "bg-dark text-dark",
+//   "ocean-blue": "bg-ocean-blue text-ocean-blue",
+//   "tokyo-night": "bg-tokyo-night text-tokyo-night",
+// };
+// export const buttonHoverStyles = {
+//   light: "hover:bg-light-primary",
+//   dark: "hover:bg-dark-primary",
+//   "ocean-blue": "hover:bg-ocean-blue-primary",
+//   "tokyo-night": "hover:bg-tokyo-night-primary",
+// };
+// export const borderStyles = {
+//   light: "border-light",
+//   dark: "border-dark",
+//   "ocean-blue": "border-ocean-blue",
+//   "tokyo-night": "border-tokyo-night",
+// };
