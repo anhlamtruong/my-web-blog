@@ -45,7 +45,7 @@ const PostWidget: React.FC<PostWidgetProps> = ({ categories, slug }) => {
         setRelatePosts(result)
       );
     } else {
-      console.log("FIRE");
+      // console.log("FIRE");
       getRecentPosts().then((result) => setRelatePosts(result));
     }
   }, [categories, slug]);

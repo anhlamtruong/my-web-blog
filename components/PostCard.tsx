@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import moment from "moment";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,50 +8,54 @@ import { AiOutlineCalendar } from "react-icons/ai";
 interface PostCardProps {
   node: Post;
 }
-const imageStyle = {
-  width: "auto",
-  height: "auto",
-};
+
 const PostCard: React.FC<PostCardProps> = ({ node }) => {
   const { theme, themeColors } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
   const { node: post } = node;
-  const { background, text, hoverText, hoverBorder, hoverBackground } =
-    themeColors[theme];
-  const containerStyle = {
-    backgroundColor: background,
-  };
-  const buttonStyle = {
-    backgroundColor: background,
-    color: isHovered ? hoverText : text,
-    outline: "1px solid transparent",
-  };
-  const handleMouseEnterText = () => {
+  const { background, text, hoverText, hoverBorder } = themeColors[theme];
+  const containerStyle = useMemo(
+    () => ({ backgroundColor: background }),
+    [background]
+  );
+  const buttonStyle = useMemo(
+    () => ({
+      backgroundColor: background,
+      color: isHovered ? hoverText : text,
+      outline: "1px solid transparent",
+    }),
+    [background, text, hoverText, isHovered]
+  );
+  const handleMouseEnterText = useCallback(() => {
     setIsHovered(true);
-  };
-  const handleMouseLeaveText = () => {
-    setIsHovered(false);
-  };
-  const textStyle = {
-    color: isHovered ? hoverText : text,
-  };
-  const handleMouseEnterButton = (
-    event: React.MouseEvent<
-      HTMLUListElement | HTMLLIElement | HTMLButtonElement
-    >
-  ) => {
-    event.currentTarget.style.outlineColor = "transparent";
-    event.currentTarget.style.backgroundColor = hoverBorder;
-  };
+  }, []);
 
-  const handleMouseLeaveButton = (
-    event: React.MouseEvent<
-      HTMLUListElement | HTMLLIElement | HTMLButtonElement
-    >
-  ) => {
-    event.currentTarget.style.backgroundColor = background;
-    event.currentTarget.style.outlineColor = hoverBorder;
-  };
+  const handleMouseLeaveText = useCallback(() => {
+    setIsHovered(false);
+  }, []);
+
+  const textStyle = useMemo(
+    () => ({
+      color: isHovered ? hoverText : text,
+    }),
+    [text, hoverText, isHovered]
+  );
+
+  const handleMouseEnterButton = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement>) => {
+      event.currentTarget.style.outlineColor = "transparent";
+      event.currentTarget.style.backgroundColor = hoverBorder;
+    },
+    [hoverBorder]
+  );
+
+  const handleMouseLeaveButton = useCallback(
+    (event: React.MouseEvent<HTMLSpanElement>) => {
+      event.currentTarget.style.backgroundColor = background;
+      event.currentTarget.style.outlineColor = hoverBorder;
+    },
+    [background, hoverBorder]
+  );
 
   return (
     <div

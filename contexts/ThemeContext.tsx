@@ -16,7 +16,7 @@ const themeColors: ThemeColors = {
     background: "rgba(249, 250, 251, 0.915)",
     text: "#1f2937",
     hoverText: "#3b82f6",
-    hoverBorder: "#1f2937",
+    hoverBorder: "#010408",
     hoverBackground: "#3b82f6",
   },
   dark: {

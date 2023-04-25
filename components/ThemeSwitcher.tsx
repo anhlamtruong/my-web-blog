@@ -38,16 +38,20 @@ const ThemeSwitcher: React.FC = () => {
   const dropdownVariants = {
     open: {
       opacity: 1,
+      scaleY: 1,
       height: "auto",
       transition: {
-        duration: 0.3,
+        opacity: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+        scaleY: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
       },
     },
     closed: {
       opacity: 0,
+      scaleY: 0,
       height: 0,
       transition: {
-        duration: 0.2,
+        opacity: { duration: 0.2, ease: [0.4, 0, 0.2, 1] },
+        scaleY: { duration: 0.2, ease: [0.4, 0, 0.2, 1] },
       },
     },
   };
@@ -77,7 +81,7 @@ const ThemeSwitcher: React.FC = () => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             variants={dropdownVariants}
-            className={`absolute rounded z-10 mt-2  border shadow`}
+            className={` origin-top absolute rounded z-10 mt-2  border shadow`}
           >
             <li
               style={containerStyle}

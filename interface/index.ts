@@ -55,15 +55,6 @@ export interface Categories {
   slug: string;
 }
 
-interface Author {
-  bio: string;
-  name: string;
-  id: string;
-  photo: {
-    url: string;
-  };
-}
-
 interface Category {
   name: string;
   slug: string;
@@ -91,7 +82,7 @@ export interface QueryResult {
   postsConnection: PostsConnection;
 }
 
-interface Author {
+export interface Author {
   bio: string;
   name: string;
   id: string;
@@ -105,9 +96,21 @@ interface Category {
   slug: string;
 }
 
+export interface ContentType extends Record<string, any> {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+}
+export interface NodeType {
+  type: string;
+  children: ContentType[];
+}
+// Define the properties of the NodeType here
+
 export interface PostDetails {
   id: string;
-  author: Author;
+  authors: Author[];
   createdAt: string;
   slug: string;
   title: string;
@@ -117,7 +120,9 @@ export interface PostDetails {
   };
   categories: Category[];
   content: {
-    raw: Record<string, any>[];
+    raw: {
+      children: NodeType[];
+    };
   };
 }
 

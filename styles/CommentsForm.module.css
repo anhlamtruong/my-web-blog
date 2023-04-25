@@ -1,0 +1,16 @@
+.textarea {
+  /* Add your existing textarea styles here */
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.textarea:focus {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.textarea::placeholder {
+  color: var(--placeholder-color);
+  font-size: medium;
+}
