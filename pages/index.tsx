@@ -3,16 +3,24 @@ import { getPosts } from "@/services";
 import { useTheme } from "../contexts/ThemeContext";
 import { Post } from "@/interface";
 import { PostCard, Categories, PostWidget } from "@/components";
-import { useEffect, useState } from "react";
+import { NextPageContext } from "next";
+import { getSession, signOut } from "next-auth/react";
 
-const posts = [
-  { title: "React Testing", excerpt: "Learn React Testing", uid: 1231234 },
-  {
-    title: "React Testing 2",
-    excerpt: "Learn React Testing love",
-    uid: 123412,
-  },
-];
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+  const posts = (await getPosts()) || [];
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { posts },
+  };
+}
 
 interface HomeProps {
   posts: Post[];
@@ -21,7 +29,7 @@ interface HomeProps {
 export default function Home({ posts }: HomeProps) {
   const { theme, themeColors } = useTheme();
   // console.log(posts);
-  const { background, text } = themeColors[theme];
+  const { text } = themeColors[theme];
   const containerStyle = {
     color: text,
   };
@@ -50,11 +58,4 @@ export default function Home({ posts }: HomeProps) {
       </div>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const posts = (await getPosts()) || [];
-  return {
-    props: { posts },
-  };
 }

@@ -129,3 +129,20 @@ export interface PostDetails {
 export interface PostDetailsQueryResult {
   post: PostDetails;
 }
+
+export interface CommentObject {
+  name: string;
+  email: string;
+  slug: string;
+  comment: string;
+}
+
+export interface Comment {
+  name: string;
+  createdAt: string;
+  comment: string;
+}
+
+export interface GetCommentsResponse {
+  comments: Comment[];
+}

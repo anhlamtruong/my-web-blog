@@ -12,7 +12,7 @@ const BackgroundGradient: React.FC<BackgroundGradientProps> = ({
   };
   return (
     <div
-      className={`w-[100vw] h-[100%] themed-background delayed overflow-visible bg-cover bg-scroll bg-repeat
+      className={` min-h-screen w-full absolute themed-background delayed overflow-visible bg-cover bg-scroll bg-repeat
   `}
       style={backgroundStyle}
     >
