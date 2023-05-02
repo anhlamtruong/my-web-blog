@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { User } from "firebase/auth";
-import { signOutUser } from "@/lib/firebase/sign_out";
+import { signOutUser } from "../lib/firebase";
 interface AccountMenuProps {
   isOpen?: boolean;
   user?: User | null;

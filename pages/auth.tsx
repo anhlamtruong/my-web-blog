@@ -4,13 +4,16 @@ import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
-import axios from "axios";
-
+import toast from "react-hot-toast";
 import Input from "../components/Input";
 import ZoomOutFadeIn from "@/components/animations/zoom-out-fade-in";
-import { signInWithGoogle } from "@/lib/firebase/sign_in_google";
-import { createUserDocumentFromAuth } from "@/lib/firebase/save_user_to_firestore";
-import { signInWithGithub } from "@/lib/firebase/sign_in_github";
+import {
+  signInWithGoogle,
+  createUserDocumentFromAuth,
+  signInWithGithub,
+  signInAuthUserWithEmailAndPassword,
+  createAuthUserWithEmailAndPassword,
+} from "@/lib/firebase";
 
 const Auth = () => {
   const router = useRouter();
@@ -66,32 +69,31 @@ const Auth = () => {
     }
   }, [router]);
 
-  const login = useCallback(async () => {
+  const handleSignInWithEmail = useCallback(async () => {
     try {
-      await signIn("credentials", {
-        email,
-        password,
-        // redirect: false,
-        callbackUrl: "/",
-      });
-      // router.push("/");
+      await signInAuthUserWithEmailAndPassword(email, password);
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
-  }, [email, password]);
+  }, [email, password, router]);
 
-  const register = useCallback(async () => {
+  const handleSignUpWithEmail = useCallback(async () => {
     try {
-      await axios.post("/api/register", {
-        email,
-        name,
-        password,
-      });
-      login();
-    } catch (error) {
-      console.log(error);
+      await createAuthUserWithEmailAndPassword(email, password, name);
+      handleSignInWithEmail();
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        //*If user already email in used
+        if (err.name === "auth/email-already-in-use") {
+          toast.error("Cannot create user, email already in use");
+        }
+      } else {
+        toast.error("USER CREATED ENCOUNTERED AN ERROR");
+        throw err;
+      }
     }
-  }, [email, name, password, login]);
+  }, [email, name, password, handleSignInWithEmail]);
 
   return (
     <div className="relative h-full w-ful bg-no-repeat bg-fixed bg-cover">
@@ -142,7 +144,11 @@ const Auth = () => {
             />
           </div>
           <button
-            onClick={variant === "login" ? login : register}
+            onClick={
+              variant === "login"
+                ? handleSignInWithEmail
+                : handleSignUpWithEmail
+            }
             className="
             bg-red-600 py-3 text-white rounded-md 
             w-full mt-10 hover:bg-red-700 transition"

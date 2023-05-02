@@ -1,4 +1,5 @@
 import "@/styles/globals.scss";
+import { Toaster } from "react-hot-toast";
 
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../contexts/ThemeContext";
@@ -20,8 +21,10 @@ export default function App({
             <Component {...pageProps} />
           </Layout>
         </BackgroundGradient>
+        <Toaster position="bottom-right" reverseOrder={false} />
       </ThemeProvider>
     </AuthProvider>
+
     // </SessionProvider>
   );
 }
