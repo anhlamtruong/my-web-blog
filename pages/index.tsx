@@ -4,19 +4,10 @@ import { useTheme } from "../contexts/ThemeContext";
 import { Post } from "@/interface";
 import { PostCard, Categories, PostWidget } from "@/components";
 import { NextPageContext } from "next";
-import { getSession, signOut } from "next-auth/react";
 
 export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
   const posts = (await getPosts()) || [];
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth",
-        permanent: false,
-      },
-    };
-  }
+
   return {
     props: { posts },
   };

@@ -59,7 +59,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="relative font-medium inline-block rounded md:float-right mt-2 align-middle ml-4"
+      className="relative font-medium inline-block rounded md:float-right  align-middle ml-4"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
