@@ -1,14 +1,6 @@
-import React, {
-  useMemo,
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import parse from "html-react-parser";
-import { useTheme } from "@/contexts/ThemeContext";
 import { getComments } from "@/services";
 import { Comment } from "../interface";
 interface CommentsProps {
@@ -17,7 +9,6 @@ interface CommentsProps {
 const Comments: React.FC<CommentsProps> = ({ slug }) => {
   const [comment, setComments] = useState<Comment[]>([]);
   useEffect(() => {
-    // console.log(slug);
     getComments(slug).then((result) => {
       setComments(result);
     });

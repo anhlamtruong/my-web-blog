@@ -1,50 +1,34 @@
 import React, { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "../contexts/ThemeContext";
-import ThemeSwitcher from "./ThemeSwitcher";
-import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../../contexts/ThemeContext";
+import ThemeSwitcher from "../ThemeSwitcher";
+import { useAuth } from "../../contexts/AuthContext";
 
-// import { getSession, signOut } from "next-auth/react";
 import { BsChevronDown } from "react-icons/bs";
-import AccountMenu from "./AccountMenu";
+import AccountMenu from "../AccountMenu";
 import { useRouter } from "next/router";
-// export async function getServerSideProps(context: NextPageContext) {
-//   const session = await getSession(context);
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: "/auth",
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return {
-//     props: {},
-//   };
-// }
+import { useStyles } from "@/hooks/useStyles";
+
 const Header = () => {
   const router = useRouter();
   const { theme, themeColors } = useTheme();
-  const { text, hoverBorder, background, hoverText } = themeColors[theme];
+  const { textPrimary, hoverBorder, backgroundPrimary, hoverText } =
+    themeColors[theme];
+  const styles = useStyles();
+
   const [isHovered, setIsHovered] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
+
   //*Style
-  const textStyle = {
-    color: text,
-  };
   const { user, loading } = useAuth();
-  const borderStyle = {
-    borderStyle: "solid",
-    borderColor: hoverBorder,
-  };
   const buttonStyle = useMemo(
     () => ({
-      backgroundColor: background,
-      color: isHovered ? hoverText : text,
+      backgroundColor: backgroundPrimary,
+      color: isHovered ? hoverText : textPrimary,
       outline: "1px solid transparent",
     }),
-    [background, text, hoverText, isHovered]
+    [backgroundPrimary, textPrimary, hoverText, isHovered]
   );
 
   //*Event Handler
@@ -59,32 +43,29 @@ const Header = () => {
   const handleMouseLeaveButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
       setIsHovered(false);
-      event.currentTarget.style.backgroundColor = background;
+      event.currentTarget.style.backgroundColor = backgroundPrimary;
       event.currentTarget.style.outlineColor = hoverBorder;
     },
-    [background, hoverBorder]
+    [backgroundPrimary, hoverBorder]
   );
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
 
   return (
-    <div className="flex mx-auto px-10 mb-8 themed-background z-20 ">
-      <div
-        style={borderStyle}
-        className={` border-b w-full inline-block  items-center  py-8`}
-      >
-        <div className="md:float-left block">
+    <div className="flex flex-col mx-auto px-10 mb-8 themed-background z-20 ">
+      <div className={`  w-full inline-block  items-center  py-8`}>
+        <div className="block">
           <Link href="/">
             <span
-              style={textStyle}
+              style={styles.textPrimary}
               className={`cursor-pointer font-bold text-4xl `}
             >
-              GraphCMS
+              Creata
             </span>
           </Link>
         </div>
-        <div className="flex justify-end justify-items-center mt-2 items-center gap-4">
+        <div className="flex flex-col justify-end justify-items-start mt-2 items-start gap-4">
           <ThemeSwitcher />
           {user ? (
             <div

@@ -1,14 +1,16 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { User } from "firebase/auth";
-import { signOutUser } from "../lib/firebase";
+import { signOutUser } from "../lib/firebase/sign_out";
+import { useStyles } from "@/hooks/useStyles";
 interface AccountMenuProps {
   isOpen?: boolean;
   user?: User | null;
 }
 
 const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, user }) => {
-  // const { data } = useCurrentUser();
+  const styles = useStyles();
+
   if (!isOpen) {
     return null;
   }
@@ -27,7 +29,8 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, user }) => {
           exit="hidden"
           variants={variants}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="origin-top bg-black w-56 z-20 absolute top-14 right-0 py-5 flex-col border-2 border-gray-800 flex"
+          style={styles.containerWithBorder}
+          className="origin-top w-56 z-20 absolute top-14 right-0 py-5 flex-col border-2 flex"
         >
           <div className=" flex flex-col gap-3 ">
             <div className="px-3 group/item flex flex-row gap-3 items-center justify-center w-full">
@@ -39,14 +42,21 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, user }) => {
                 quality={100}
                 className=" w-8 rounded-md"
               />
-              <p className="text-white text-sm group-hover/item:underline">
+              <p
+                style={styles.textPrimary}
+                className="text-white text-sm group-hover/item:underline"
+              >
                 {user?.displayName}
               </p>
             </div>
-            <hr className=" bg-gray-600 border-0 h-px my-4" />
+            <hr
+              style={styles.backgroundSecondary}
+              className=" border-0 h-px my-4"
+            />
             <div
               onClick={() => signOutUser()}
-              className=" px-3 text-center text-white text-sm hover:underline"
+              style={styles.textPrimary}
+              className=" px-3 text-center text-sm hover:underline"
             >
               Sign Out
             </div>

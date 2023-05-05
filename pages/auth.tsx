@@ -14,10 +14,11 @@ import {
   signInAuthUserWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
 } from "@/lib/firebase";
+import { useStyles } from "@/hooks/useStyles";
 
 const Auth = () => {
   const router = useRouter();
-
+  const styles = useStyles();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -99,11 +100,15 @@ const Auth = () => {
     <div className="relative h-full w-ful bg-no-repeat bg-fixed bg-cover">
       <div className="flex justify-center">
         <div
-          className="bg-black bg-opacity-70 px-16 py-16 self-center 
+          style={styles.backgroundPrimaryOpacity}
+          className="bg-opacity-70 px-16 py-16 self-center 
           mt-2 lg:w-2/5 lg:max-w-md rounded-md 
           w-full"
         >
-          <h2 className="text-white text-4xl mb-8 font-semibold">
+          <h2
+            style={styles.textPrimary}
+            className=" text-4xl mb-8 font-semibold"
+          >
             {variant === "login" ? "Sign In" : "Register"}
           </h2>
           <div className="flex flex-col gap-4">
@@ -182,7 +187,8 @@ const Auth = () => {
 
             <span
               onClick={toggleVariant}
-              className=" text-white ml-1 hover:underline cursor-pointer"
+              style={styles.textSecondary}
+              className=" ml-1 hover:underline cursor-pointer"
             >
               {variant === "login" ? "Create an account" : "Login"}
             </span>

@@ -1,26 +1,18 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import moment from "moment";
-import Link from "next/link";
-import Image from "next/image";
-import { Post, PostDetails, ContentType, NodeType } from "@/interface";
-import { useTheme } from "@/contexts/ThemeContext";
-import { AiOutlineCalendar } from "react-icons/ai";
 
+import Image from "next/image";
+import { PostDetails, ContentType, NodeType } from "@/interface";
+
+import { AiOutlineCalendar } from "react-icons/ai";
+import { useStyles } from "@/hooks/useStyles";
 interface PostDetailsProps {
   post: PostDetails;
 }
 type ContentFragmentType = string | JSX.Element | JSX.Element[] | undefined;
 
 const PostDetail: React.FC<PostDetailsProps> = ({ post }) => {
-  const { theme, themeColors } = useTheme();
-  const { background, text } = themeColors[theme];
-  const containerStyle = useMemo(
-    () => ({
-      backgroundColor: background,
-      color: text,
-    }),
-    [background, text]
-  );
+  const styles = useStyles();
 
   const getContentFragment = useCallback(
     (
@@ -100,7 +92,7 @@ const PostDetail: React.FC<PostDetailsProps> = ({ post }) => {
   );
   return (
     <div
-      style={containerStyle}
+      style={styles.container}
       className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8"
     >
       <div className="relative overflow-hidden shadow-md mb-6">

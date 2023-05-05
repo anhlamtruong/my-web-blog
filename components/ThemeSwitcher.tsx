@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme, Theme } from "../contexts/ThemeContext";
 
 const ThemeSwitcher: React.FC = () => {
   const { theme, setTheme, themeColors } = useTheme();
-  const { background, text, hoverBorder, hoverBackground } = themeColors[theme];
+  const { backgroundPrimary, textPrimary, hoverBorder, hoverBackground } =
+    themeColors[theme];
   const [isOpen, setIsOpen] = useState(false);
   const handleThemeChange = (newTheme: string) => {
     setTheme(newTheme as Theme);
     setIsOpen(false);
   };
-  const containerStyle = {
-    backgroundColor: background,
-    color: text,
-    outline: "1px solid transparent",
-    transition:
-      "background-color 200ms ease, border-color 200ms ease, border-width 200ms ease",
-  };
+  const containerStyle = useMemo(() => {
+    return {
+      backgroundColor: backgroundPrimary,
+      color: textPrimary,
+      outline: "1px solid transparent",
+      transition:
+        "background-color 200ms ease, border-color 200ms ease, border-width 200ms ease",
+    };
+  }, [backgroundPrimary, textPrimary]);
   const handleMouseEnter = (
     event: React.MouseEvent<
       HTMLUListElement | HTMLLIElement | HTMLButtonElement
@@ -31,7 +34,7 @@ const ThemeSwitcher: React.FC = () => {
       HTMLUListElement | HTMLLIElement | HTMLButtonElement
     >
   ) => {
-    event.currentTarget.style.backgroundColor = background;
+    event.currentTarget.style.backgroundColor = backgroundPrimary;
     event.currentTarget.style.outlineColor = "transparent";
   };
 
@@ -59,7 +62,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <div
       onClick={() => setIsOpen(!isOpen)}
-      className="relative font-medium inline-block rounded md:float-right  align-middle ml-4"
+      className="relative font-medium inline-block rounded  text-lg align-middle"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}

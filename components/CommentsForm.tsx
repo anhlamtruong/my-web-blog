@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Image from "next/image";
+
 import { useTheme } from "@/contexts/ThemeContext";
 import styles from "../styles/CommentsForm.module.css";
 import { submitComment } from "../services";
@@ -38,16 +38,16 @@ const CommentsForm: React.FC<CommentsFormProps> = ({ slug }) => {
   const emailEl = useRef<HTMLInputElement | null>(null);
   const storeDataEl = useRef<HTMLInputElement | null>(null);
   const { theme, themeColors } = useTheme();
-  const { background, text, hoverBorder, hoverText, hoverBackground } =
+  const { backgroundPrimary, textPrimary, hoverBorder, hoverText } =
     themeColors[theme];
 
   const buttonStyle = useMemo(
     () => ({
-      backgroundColor: background,
-      color: isHovered ? hoverText : text,
+      backgroundColor: backgroundPrimary,
+      color: isHovered ? hoverText : textPrimary,
       outline: "1px solid transparent",
     }),
-    [background, text, hoverText, isHovered]
+    [backgroundPrimary, textPrimary, hoverText, isHovered]
   );
   const handleMouseEnterButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
@@ -75,28 +75,28 @@ const CommentsForm: React.FC<CommentsFormProps> = ({ slug }) => {
   const handleMouseLeaveButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
       setIsHovered(false);
-      event.currentTarget.style.backgroundColor = background;
+      event.currentTarget.style.backgroundColor = backgroundPrimary;
       event.currentTarget.style.outlineColor = hoverBorder;
     },
-    [background, hoverBorder]
+    [backgroundPrimary, hoverBorder]
   );
   const CommentFormStyle = useMemo(
     () => ({
-      backgroundColor: background,
-      text: text,
+      backgroundColor: backgroundPrimary,
+      text: textPrimary,
       borderColor: hoverBorder,
       outline: "1px solid transparent",
       transition:
         "background-color 200ms ease, border-color 200ms ease, border-width 200ms ease",
     }),
-    [background, text, hoverBorder]
+    [backgroundPrimary, textPrimary, hoverBorder]
   );
 
   const textAreaStyle = useMemo(
     () => ({
-      backgroundColor: background,
-      color: text,
-      borderColor: text,
+      backgroundColor: backgroundPrimary,
+      color: textPrimary,
+      borderColor: textPrimary,
       outline: "1px solid transparent",
       transition:
         "background-color 200ms ease, border-color 200ms ease, border-width 200ms ease",
@@ -108,12 +108,12 @@ const CommentsForm: React.FC<CommentsFormProps> = ({ slug }) => {
         // "--background-color": hoverBackground,
         // "--text-color": hoverText,
         // "--border-color": hoverText,
-        borderColor: text,
-        color: text,
+        borderColor: textPrimary,
+        color: textPrimary,
         backgroundColor: hoverText,
       },
     }),
-    [background, text, hoverText]
+    [backgroundPrimary, textPrimary, hoverText]
   );
   const ErrorStyle = useMemo(
     () => ({

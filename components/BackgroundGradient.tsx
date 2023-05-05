@@ -6,7 +6,7 @@ interface BackgroundGradientProps {
 const BackgroundGradient: React.FC<BackgroundGradientProps> = ({
   children,
 }) => {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const backgroundStyle = {
     backgroundImage: `${getLinearGradient(theme)}`,
   };

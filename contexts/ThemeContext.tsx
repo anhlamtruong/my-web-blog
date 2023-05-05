@@ -3,8 +3,19 @@ export type Theme = "light" | "dark" | "ocean-blue" | "tokyo-night";
 
 type ThemeColors = {
   [key in Theme]: {
-    background: string;
-    text: string;
+    backgroundPrimary: string;
+    backgroundSecondary: string;
+    backgroundTertiary: string;
+    backgroundPrimaryOpacity: string;
+    backgroundSecondaryOpacity: string;
+    backgroundTertiaryOpacity: string;
+    textPrimary: string;
+    textSecondary: string;
+    textTertiary: string;
+    textTint: string;
+    textShade: string;
+    borderPrimary: string;
+    borderSecondary: string;
     hoverText: string;
     hoverBorder: string;
     hoverBackground: string;
@@ -13,29 +24,73 @@ type ThemeColors = {
 
 const themeColors: ThemeColors = {
   light: {
-    background: "rgba(249, 250, 251, 0.915)",
-    text: "#1f2937",
+    backgroundPrimary: "#f9fafb",
+    backgroundSecondary: "#e5e7eb",
+    backgroundTertiary: "#d1d5db",
+    backgroundPrimaryOpacity: "rgba(249, 250, 251, 0.9)",
+    backgroundSecondaryOpacity: "rgba(229, 231, 235, 0.9)",
+    backgroundTertiaryOpacity: "rgba(209, 213, 219, 0.9)",
+    textPrimary: "#1f2937",
+    textSecondary: "#4b5563",
+    textTertiary: "#9ca3af",
+    textTint: "#d1d5db",
+    textShade: "#6b7280",
+    borderPrimary: "#e5e7eb",
+    borderSecondary: "#d1d5db",
     hoverText: "#3b82f6",
     hoverBorder: "#010408",
     hoverBackground: "#3b82f6",
   },
   dark: {
-    background: "rgba(31, 41, 55, 0.915)",
-    text: "#f9fafb",
+    backgroundPrimary: "#1f2937",
+    backgroundSecondary: "#4b5563",
+    backgroundTertiary: "#6b7280",
+    backgroundPrimaryOpacity: "rgba(31, 41, 55, 0.9)",
+    backgroundSecondaryOpacity: "rgba(75, 85, 99, 0.9)",
+    backgroundTertiaryOpacity: "rgba(107, 114, 128, 0.9)",
+    textPrimary: "#f9fafb",
+    textSecondary: "#d1d5db",
+    textTertiary: "#9ca3af",
+    textTint: "#6b7280",
+    textShade: "#4b5563",
+    borderPrimary: "#6b7280",
+    borderSecondary: "#4b5563",
     hoverText: "#ec4899",
     hoverBorder: "#4b5563",
     hoverBackground: "#8b5cf6",
   },
   "ocean-blue": {
-    background: "rgba(0, 118, 182, 0.915)",
-    text: "#caf0f8",
+    backgroundPrimary: "#00b4d8",
+    backgroundSecondary: "#48cae4",
+    backgroundTertiary: "#90e0ef",
+    backgroundPrimaryOpacity: "rgba(0, 180, 216, 0.9)",
+    backgroundSecondaryOpacity: "rgba(72, 202, 228, 0.9)",
+    backgroundTertiaryOpacity: "rgba(144, 224, 239, 0.9)",
+    textPrimary: "#03045e",
+    textSecondary: "#023e8a",
+    textTertiary: "#0077b6",
+    textTint: "#90e0ef",
+    textShade: "#48cae4",
+    borderPrimary: "#023e8a",
+    borderSecondary: "#0077b6",
     hoverText: "#f48c06",
     hoverBorder: "#90e0ef",
     hoverBackground: "#00b4d8",
   },
   "tokyo-night": {
-    background: "rgba(26, 32, 44, 0.915)",
-    text: "#edf2f7",
+    backgroundPrimary: "#1a202c",
+    backgroundSecondary: "#2d3748",
+    backgroundTertiary: "#4a5568",
+    backgroundPrimaryOpacity: "rgba(26, 32, 44, 0.9)",
+    backgroundSecondaryOpacity: "rgba(45, 55, 72, 0.9)",
+    backgroundTertiaryOpacity: "rgba(74, 85, 104, 0.9)",
+    textPrimary: "#edf2f7",
+    textSecondary: "#a0aec0",
+    textTertiary: "#718096",
+    textTint: "#e2e8f0",
+    textShade: "#a0aec0",
+    borderPrimary: "#4a5568",
+    borderSecondary: "#2d3748",
     hoverText: "#f56565",
     hoverBorder: "#2d3748",
     hoverBackground: "#f56565",

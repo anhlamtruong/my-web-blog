@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { getPosts, getPostsDetails } from "../../services";
 //getPostsDetails
 import {
@@ -10,8 +10,8 @@ import {
   CommentsForm,
 } from "../../components";
 import { PostDetails } from "@/interface";
-import { useTheme } from "@/contexts/ThemeContext";
 import { GetStaticPropsContext } from "next";
+import { useStyles } from "@/hooks/useStyles";
 //PostDetail, Author, Comments, CommentsForm
 interface PostWidgetProps {
   post: PostDetails;
@@ -19,15 +19,12 @@ interface PostWidgetProps {
 
 const PostDetails: React.FC<PostWidgetProps> = ({ post }) => {
   // console.log(post);
-  const { theme, themeColors } = useTheme();
-  const [isHovered, setIsHovered] = useState(false);
-  const { text } = themeColors[theme];
-  const containerStyle = {
-    color: text,
-  };
-
+  const styles = useStyles();
   return (
-    <div style={containerStyle} className="container mx-auto px-10 themed-text">
+    <div
+      style={styles.textPrimary}
+      className="container mx-auto px-10 themed-text"
+    >
       <div className=" grid grid-cols-1 lg:grid-cols-12 gap-12">
         <div className="lg:col-span-8 col-span-1">
           <PostDetail post={post}></PostDetail>

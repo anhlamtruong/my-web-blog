@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Post } from "@/interface";
 import { useTheme } from "@/contexts/ThemeContext";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { useStyles } from "@/hooks/useStyles";
 interface PostCardProps {
   node: Post;
 }
@@ -12,19 +13,17 @@ interface PostCardProps {
 const PostCard: React.FC<PostCardProps> = ({ node }) => {
   const { theme, themeColors } = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const styles = useStyles();
   const { node: post } = node;
-  const { background, text, hoverText, hoverBorder } = themeColors[theme];
-  const containerStyle = useMemo(
-    () => ({ backgroundColor: background }),
-    [background]
-  );
+  const { backgroundPrimary, textPrimary, hoverText, hoverBorder } =
+    themeColors[theme];
   const buttonStyle = useMemo(
     () => ({
-      backgroundColor: background,
-      color: isHovered ? hoverText : text,
+      backgroundColor: backgroundPrimary,
+      color: isHovered ? hoverText : textPrimary,
       outline: "1px solid transparent",
     }),
-    [background, text, hoverText, isHovered]
+    [backgroundPrimary, textPrimary, hoverText, isHovered]
   );
   const handleMouseEnterText = useCallback(() => {
     setIsHovered(true);
@@ -36,9 +35,9 @@ const PostCard: React.FC<PostCardProps> = ({ node }) => {
 
   const textStyle = useMemo(
     () => ({
-      color: isHovered ? hoverText : text,
+      color: isHovered ? hoverText : textPrimary,
     }),
-    [text, hoverText, isHovered]
+    [textPrimary, hoverText, isHovered]
   );
 
   const handleMouseEnterButton = useCallback(
@@ -51,17 +50,17 @@ const PostCard: React.FC<PostCardProps> = ({ node }) => {
 
   const handleMouseLeaveButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
-      event.currentTarget.style.backgroundColor = background;
+      event.currentTarget.style.backgroundColor = backgroundPrimary;
       event.currentTarget.style.outlineColor = hoverBorder;
     },
-    [background, hoverBorder]
+    [backgroundPrimary, hoverBorder]
   );
 
   return (
     <div
       onMouseEnter={handleMouseEnterText}
       onMouseLeave={handleMouseLeaveText}
-      style={containerStyle}
+      style={styles.backgroundPrimary}
       className="group shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8"
     >
       <div className=" relative overflow-hidden shadow-md pd-80 mb-6">

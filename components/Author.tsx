@@ -1,25 +1,18 @@
 import { Author } from "@/interface";
 import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import { useTheme } from "@/contexts/ThemeContext";
+import { useStyles } from "@/hooks/useStyles";
 interface AuthorProps {
   authors: Author[];
 }
 
 const Author: React.FC<AuthorProps> = ({ authors }) => {
-  const { theme, themeColors } = useTheme();
-  // const [isHovered, setIsHovered] = useState(false);
-  const { background } = themeColors[theme];
-  const backGroundStyle = useMemo(
-    () => ({
-      backgroundColor: background,
-    }),
-    [background]
-  );
+  const styles = useStyles();
+
   const author = authors[0];
   return (
     <div
-      style={backGroundStyle}
+      style={styles.backgroundPrimary}
       className="relative text-center sm:text-start mt-20 mb-8 p-12 rounded-lg bg-opacity-20"
     >
       <div className=" absolute left-4 right-0 -top-14">

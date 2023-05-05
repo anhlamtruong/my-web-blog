@@ -5,6 +5,7 @@ import Image from "next/image";
 import moment from "moment";
 import { getRecentPosts, getSimilarPosts } from "@/services";
 import Link from "next/link";
+import { useStyles } from "@/hooks/useStyles";
 
 interface PostWidgetProps {
   categories: string[];
@@ -15,15 +16,9 @@ const PostWidget: React.FC<PostWidgetProps> = ({ categories, slug }) => {
     RelatedPosts[] | SimilarPosts[] | []
   >([]);
   const { theme, themeColors } = useTheme();
-  const { background, text, hoverBorder, hoverText } = themeColors[theme];
-  const containerStyle = {
-    backgroundColor: background,
-    text: text,
-    borderColor: hoverBorder,
-  };
-  const TextStyle = {
-    color: text,
-  };
+  const styles = useStyles();
+  const { textPrimary, hoverText } = themeColors[theme];
+
   const handleMouseEnter = (
     event: React.MouseEvent<
       HTMLUListElement | HTMLLIElement | HTMLButtonElement | HTMLAnchorElement
@@ -37,7 +32,7 @@ const PostWidget: React.FC<PostWidgetProps> = ({ categories, slug }) => {
       HTMLUListElement | HTMLLIElement | HTMLButtonElement | HTMLAnchorElement
     >
   ) => {
-    event.currentTarget.style.color = text;
+    event.currentTarget.style.color = textPrimary;
   };
   useEffect(() => {
     if (slug) {
@@ -53,7 +48,7 @@ const PostWidget: React.FC<PostWidgetProps> = ({ categories, slug }) => {
   // console.log(relatePosts);
 
   return (
-    <div style={containerStyle} className=" shadow-lg rounded-lg p-8 mb-8">
+    <div style={styles.container} className=" shadow-lg rounded-lg p-8 mb-8">
       <h3 className=" text-xl mb-6 font-semibold border-b pb-4">
         {slug ? "Related Posts" : "Recent Posts"}
       </h3>
@@ -78,7 +73,7 @@ const PostWidget: React.FC<PostWidgetProps> = ({ categories, slug }) => {
             </p>
             <Link
               href={`/post/${post.slug}`}
-              style={TextStyle}
+              style={styles.textPrimary}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               className=" text-xs themed-text"
