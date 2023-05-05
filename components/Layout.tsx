@@ -9,16 +9,16 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const styles = useStyles();
   return (
-    <div className="container h-full mx-auto xl:px-30 max-w-6xl">
-      <div className=" grid grid-cols-4 h-full">
+    <div className="container h-full mx-auto xl:px-30 max-w-7xl">
+      <div className=" grid grid-cols-5 h-full">
         <Header />
         <div
           style={styles.borderStyle}
-          className=" col-span-3 lg:col-span-2 border-x-[1px]"
+          className=" col-span-4 lg:col-span-3 border-x-[1px]"
         >
           {children}
         </div>
-        <div className="mx-auto col-start-2 col-span-3 lg:col-end-5 lg:col-span-1 lg:sticky relative top-8">
+        <div className="mx-auto col-start-2 col-span-4 lg:col-end-6 lg:col-span-1 lg:sticky relative top-8">
           <PostWidget categories={["test"]} />
           <Categories />
         </div>
