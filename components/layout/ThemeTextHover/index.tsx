@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState } from "react";
+import React, { useMemo, useCallback, useState, useEffect } from "react";
 import { useTheme } from "../../../contexts/ThemeContext";
 interface ThemedTextHoverProps {
   children: React.ReactNode;
@@ -25,6 +25,13 @@ const ThemeTextHover: React.FC<ThemedTextHoverProps> = ({
     return { baseStyle, hoverStyle };
   }, [textPrimary, hoverText]);
   const [style, setStyle] = useState(textStyle.baseStyle);
+
+  useEffect(() => {
+    setStyle((prevState) => ({
+      ...prevState,
+      color: textStyle.baseStyle.color,
+    }));
+  }, [textStyle.baseStyle.color]);
 
   const handleMouseEnter = useCallback(() => {
     setStyle({ ...textStyle.baseStyle, ...textStyle.hoverStyle });

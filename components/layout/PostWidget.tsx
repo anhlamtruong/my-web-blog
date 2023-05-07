@@ -1,5 +1,5 @@
 import { useTheme } from "@/contexts/ThemeContext";
-import { RelatedPosts, SimilarPosts } from "../interface";
+import { RelatedPosts, SimilarPosts } from "../../interface";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import moment from "moment";

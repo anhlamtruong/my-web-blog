@@ -4,21 +4,30 @@ import Image from "next/image";
 import { useTheme } from "../../contexts/ThemeContext";
 import ThemeSwitcher from "../ThemeSwitcher";
 import { useAuth } from "../../contexts/AuthContext";
-import { BsBellFill, BsChevronDown } from "react-icons/bs";
+import {
+  BsBellFill,
+  BsChevronDown,
+  BsFillChatLeftTextFill,
+} from "react-icons/bs";
 import AccountMenu from "../AccountMenu";
 import { useRouter } from "next/router";
-import { useStyles } from "@/hooks/useStyles";
 import { FaUser } from "react-icons/fa";
 import SidebarLogo from "./SidebarLogo";
+import SidebarItem from "./SidebarItem";
+import SidebarTweetButton from "./SidebarTweetButton";
 
 const Header = () => {
   const router = useRouter();
   const { theme, themeColors } = useTheme();
-  const { textPrimary, hoverBorder, backgroundPrimary, hoverText } =
-    themeColors[theme];
-  const styles = useStyles();
+  const {
+    textPrimary,
+    hoverBorder,
+    backgroundPrimary,
+    backgroundSecondary,
+    hoverText,
+  } = themeColors[theme];
 
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHoveredButton, setIsHoveredButton] = useState(false);
   const [showAccountMenu, setShowAccountMenu] = useState(false);
 
   //*Style
@@ -26,10 +35,10 @@ const Header = () => {
   const buttonStyle = useMemo(
     () => ({
       backgroundColor: backgroundPrimary,
-      color: isHovered ? hoverText : textPrimary,
+      color: isHoveredButton ? hoverText : textPrimary,
       outline: "1px solid transparent",
     }),
-    [backgroundPrimary, textPrimary, hoverText, isHovered]
+    [backgroundPrimary, textPrimary, hoverText, isHoveredButton]
   );
 
   //*Items
@@ -48,7 +57,7 @@ const Header = () => {
       {
         label: "Chat",
         href: "123/chats/312512",
-        icon: FaUser,
+        icon: BsFillChatLeftTextFill,
       },
     ];
   }, []);
@@ -56,7 +65,7 @@ const Header = () => {
   //*Event Handler
   const handleMouseEnterButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
-      setIsHovered(true);
+      setIsHoveredButton(true);
       event.currentTarget.style.outlineColor = "transparent";
       event.currentTarget.style.backgroundColor = hoverBorder;
     },
@@ -64,33 +73,34 @@ const Header = () => {
   );
   const handleMouseLeaveButton = useCallback(
     (event: React.MouseEvent<HTMLSpanElement>) => {
-      setIsHovered(false);
+      setIsHoveredButton(false);
       event.currentTarget.style.backgroundColor = backgroundPrimary;
       event.currentTarget.style.outlineColor = hoverBorder;
     },
     [backgroundPrimary, hoverBorder]
   );
+
   const toggleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
   }, []);
 
   return (
     <div className=" col-span-1 mx-auto pr-4 md:pr-6 themed-background z-20 ">
-      <div className=" flex flex-col space-y-2 lg:w-52">
-        <SidebarLogo />
+      <div className={`w-full inline-block  items-center`}>
+        <div className=" relative flex flex-col space-y-2 lg:w-52">
+          <SidebarLogo />
 
-        <div className={`w-full inline-block  items-center`}>
-          <div className="block">
-            <Link href="/">
-              <span
-                style={styles.textPrimary}
-                className={`cursor-pointer font-bold text-4xl `}
-              >
-                Creata
-              </span>
-            </Link>
-          </div>
-          <div className="flex flex-col justify-end justify-items-start mt-2 items-start gap-4">
+          {items.map((item) => (
+            <SidebarItem
+              key={item.href}
+              href={item.href}
+              label={item.label}
+              icon={item.icon}
+            ></SidebarItem>
+          ))}
+          <SidebarTweetButton></SidebarTweetButton>
+
+          <div className="flex flex-col justify-end justify-items-start mt-2 ml-4 items-start gap-4">
             <ThemeSwitcher />
             {user ? (
               <div

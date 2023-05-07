@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useTheme } from "../contexts/ThemeContext";
-import { css } from "@emotion/react";
 export const useStyles = () => {
   const { themeColors, theme } = useTheme();
   const {
@@ -58,15 +57,6 @@ export const useStyles = () => {
         borderRadius: "0.25rem",
         cursor: "pointer",
       },
-      textWithHover: css`
-        color: ${textPrimary};
-        cursor: pointer;
-        transition: background-color 0.2s, color 0.2s, ease-in;
-
-        &:hover {
-          color: ${hoverText};
-        }
-      `,
 
       borderStyle: {
         borderStyle: "solid",

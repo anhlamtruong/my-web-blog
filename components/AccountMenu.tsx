@@ -3,6 +3,7 @@ import Image from "next/image";
 import { User } from "firebase/auth";
 import { signOutUser } from "../lib/firebase/sign_out";
 import { useStyles } from "@/hooks/useStyles";
+import { BiLogOut } from "react-icons/bi";
 interface AccountMenuProps {
   isOpen?: boolean;
   user?: User | null;
@@ -30,7 +31,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, user }) => {
           variants={variants}
           transition={{ duration: 0.3, ease: "easeInOut" }}
           style={styles.containerWithBorder}
-          className="origin-top w-56 z-20 absolute top-14 right-0 py-5 flex-col border-2 flex"
+          className="origin-top w-56 z-20 absolute top-14 left-4 py-5 flex-col border-2 flex"
         >
           <div className=" flex flex-col gap-3 ">
             <div className="px-3 group/item flex flex-row gap-3 items-center justify-center w-full">
@@ -56,8 +57,9 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ isOpen, user }) => {
             <div
               onClick={() => signOutUser()}
               style={styles.textPrimary}
-              className=" px-3 text-center text-sm hover:underline"
+              className=" px-3 text-center text-sm hover:underline flex justify-center items-center gap-4"
             >
+              <BiLogOut size={28}></BiLogOut>
               Sign Out
             </div>
           </div>
